@@ -797,6 +797,9 @@ function inicializarPerfil() {
 
                         localStorage.removeItem('usuarioAlquimia');
                         localStorage.removeItem('fotoPerfilAlquimia');
+                        localStorage.removeItem('carritoAlquimia');
+                        localStorage.removeItem('ultimaAlerta_cliente');
+                        localStorage.removeItem('ultimaAlerta_admin');
 
                         setTimeout(() => {
                             window.location.href = 'Dulce_Alquimia.html';
@@ -1295,7 +1298,7 @@ async function abrirModalNotificaciones(rol) {
             await fetch(`${API_BASE}/api/alertas/vaciar`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ rol })
+                body: JSON.stringify({ rol, email: correoUser })
             });
             actualizarPuntitosRojosAlerta();
             modal.remove();

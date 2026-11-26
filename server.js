@@ -147,17 +147,114 @@ app.put('/api/perfil/actualizar', async (req, res) => {
 
 app.delete('/api/perfil/eliminar', async (req, res) => {
     const { email } = req.body;
+    const correoNormalizado = String(email || '').trim().toLowerCase();
+    const client = await pool.connect();
+
     try {
-        await pool.query(
-            'DELETE FROM usuarios WHERE LOWER(correo) = LOWER($1)',
-            [String(email || '').trim().toLowerCase()]
+        await client.query('BEGIN');
+
+        // 1. Obtener nombre del usuario antes de borrarlo para limpiar también sus comentarios del foro
+        const userRes = await client.query(
+            'SELECT nombre FROM usuarios WHERE LOWER(correo) = LOWER($1)',
+            [correoNormalizado]
         );
+        const nombreUsuario = userRes.rows[0]?.nombre || '';
+
+        // 2. Eliminar todos los pedidos del cliente (desaparecen también del panel de admin)
+        await client.query(
+            'DELETE FROM pedidos WHERE LOWER(correocliente) = LOWER($1)',
+            [correoNormalizado]
+        );
+
+        // 3. Eliminar todas las alertas asociadas o generadas por ese cliente
+        await client.query(
+            'DELETE FROM alertassistema WHERE LOWER(emailusuario) = LOWER($1) OR LOWER(generadopor) = LOWER($1)',
+            [correoNormalizado]
+        );
+
+        // 4. Eliminar sus comentarios y respuestas en el foro (si tenía)
+        if (nombreUsuario) {
+            await client.query(
+                `DELETE FROM fororespuestas
+                 WHERE LOWER(nombre) = LOWER($1)
+                    OR idpadre IN (SELECT id FROM forocomentarios WHERE LOWER(nombre) = LOWER($1))`,
+                [nombreUsuario]
+            );
+            await client.query(
+                'DELETE FROM forocomentarios WHERE LOWER(nombre) = LOWER($1)',
+                [nombreUsuario]
+            );
+        }
+app.delete('/api/perfil/eliminar', async (req, res) => {
+    const { email } = req.body;
+    const correoNormalizado = String(email || '').trim().toLowerCase();
+    const client = await pool.connect();
+
+    try {
+        await client.query('BEGIN');
+
+        // 1. Obtener nombre del usuario antes de borrarlo para limpiar también sus comentarios del foro
+        const userRes = await client.query(
+            'SELECT nombre FROM usuarios WHERE LOWER(correo) = LOWER($1)',
+            [correoNormalizado]
+        );
+        const nombreUsuario = userRes.rows[0]?.nombre || '';
+
+        // 2. Eliminar todos los pedidos del cliente (desaparecen también del panel de admin)
+        await client.query(
+            'DELETE FROM pedidos WHERE LOWER(correocliente) = LOWER($1)',
+            [correoNormalizado]
+        );
+
+        // 3. Eliminar todas las alertas asociadas o generadas por ese cliente
+        await client.query(
+            'DELETE FROM alertassistema WHERE LOWER(emailusuario) = LOWER($1) OR LOWER(generadopor) = LOWER($1)',
+            [correoNormalizado]
+        );
+
+        // 4. Eliminar sus comentarios y respuestas en el foro (si tenía)
+        if (nombreUsuario) {
+            await client.query(
+                `DELETE FROM fororespuestas
+                 WHERE LOWER(nombre) = LOWER($1)
+                    OR idpadre IN (SELECT id FROM forocomentarios WHERE LOWER(nombre) = LOWER($1))`,
+                [nombreUsuario]
+            );
+            await client.query(
+                'DELETE FROM forocomentarios WHERE LOWER(nombre) = LOWER($1)',
+                [nombreUsuario]
+            );
+        }
+
+        // 5. Eliminar la cuenta de usuario
+        await client.query(
+            'DELETE FROM usuarios WHERE LOWER(correo) = LOWER($1)',
+            [correoNormalizado]
+        );
+
+        await client.query('COMMIT');
         res.json({ exito: true });
     } catch (error) {
+        try { await client.query('ROLLBACK'); } catch (e) {}
         res.status(500).json({ error: error.message });
+    } finally {
+        client.release();
     }
 });
+        await client.query(
+            'DELETE FROM usuarios WHERE LOWER(correo) = LOWER($1)',
+            [correoNormalizado]
+        );
 
+        await client.query('COMMIT');
+        res.json({ exito: true });
+    } catch (error) {
+        try { await client.query('ROLLBACK'); } catch (e) {}
+        res.status(500).json({ error: error.message });
+    } finally {
+        client.release();
+    }
+});
 app.post('/api/carrito/comprar', async (req, res) => {
     const { idPedido, cliente, correoCliente, productos, servicio, total, carritoDetalle } = req.body;
     const ahora = Date.now();
@@ -305,7 +402,6 @@ app.get('/api/pedidos', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 app.put('/api/pedidos/estado', async (req, res) => {
     const { idPedido, estado } = req.body;
     const ESTADOS_VALIDOS = ['pendiente', 'entrega', 'completado'];
@@ -342,10 +438,62 @@ app.put('/api/pedidos/estado', async (req, res) => {
             [
                 nextAlertaId,
                 `El estado de tu pedido ${idPedido} ha cambiado a: ${estado.toUpperCase()}`,
-                correoCliente
+                String(correoCliente || '').trim().toLowerCase()
             ]
         );
 
+        res.json({ exito: true });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/alertas', async (req, res) => {
+    const rol = String(req.query.rol || '').trim().toLowerCase();
+    const email = String(req.query.email || '').trim().toLowerCase();
+
+    try {
+        let resultado;
+        if (rol === 'admin') {
+            resultado = await pool.query(
+                `SELECT * FROM alertassistema
+                 WHERE roldestino = 'admin'
+                   AND (generadopor IS NULL OR LOWER(generadopor) != LOWER($1))
+                 ORDER BY id DESC`,
+                [email]
+            );
+        } else {
+            // Para clientes: solo alertas dirigidas a su correo o alertas globales (emailusuario IS NULL)
+            resultado = await pool.query(
+                `SELECT * FROM alertassistema
+                 WHERE roldestino = 'cliente'
+                   AND (emailusuario IS NULL OR LOWER(emailusuario) = LOWER($1))
+                   AND (generadopor IS NULL OR LOWER(generadopor) != LOWER($1))
+                 ORDER BY id DESC`,
+                [email]
+            );
+        }
+        res.json(resultado.rows);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.delete('/api/alertas/vaciar', async (req, res) => {
+    const rol = String(req.body.rol || '').trim().toLowerCase();
+    const email = String(req.body.email || '').trim().toLowerCase();
+
+    try {
+        if (rol === 'admin') {
+            await pool.query(`DELETE FROM alertassistema WHERE roldestino = 'admin'`);
+        } else {
+            await pool.query(
+                `DELETE FROM alertassistema
+                 WHERE roldestino = 'cliente'
+                   AND LOWER(emailusuario) = LOWER($1)`,
+                [email]
+            );
+        }
         res.json({ exito: true });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -621,35 +769,6 @@ app.post('/api/alertas/crear', async (req, res) => {
              VALUES ($1, $2, $3, $4, $5)`,
             [nextId, rolDestino, mensaje, emailUsuario || null, generadoPor || null]
         );
-        res.json({ exito: true });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-app.get('/api/alertas', async (req, res) => {
-    const { rol, email } = req.query;
-    try {
-        const resultado = await pool.query(
-            `SELECT * FROM alertassistema
-             WHERE (
-                 (roldestino = $1 AND (generadopor IS NULL OR generadopor != $2))
-                 OR
-                 (emailusuario = $2 AND (generadopor IS NULL OR generadopor != $2))
-             )
-             ORDER BY id DESC`,
-            [rol, email || '']
-        );
-        res.json(resultado.rows);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-app.delete('/api/alertas/vaciar', async (req, res) => {
-    const { rol } = req.body;
-    try {
-        await pool.query('DELETE FROM alertassistema WHERE roldestino = $1', [rol]);
         res.json({ exito: true });
     } catch (error) {
         res.status(500).json({ error: error.message });
