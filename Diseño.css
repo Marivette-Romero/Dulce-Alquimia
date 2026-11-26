@@ -1316,13 +1316,37 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
 
 /* MEDIDAS ADAPTABLES (UNIFICADAS) */
 @media (max-width: 768px) {
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
+  .lanzamientos {
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    scroll-snap-type: x mandatory;
+  }
+
+  .lanzamientos > div {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    position: relative;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .lanzamientos img {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+  }
 
     .Busqueda {
         position: fixed;
@@ -1402,37 +1426,6 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
     .carrito-contenedor,
     .tit {
         margin-top: 145px;
-    }
-
-    /* Banner / lanzamientos visible y adaptable en celular */
-    .lanzamientos {
-        width: 100%;
-        min-height: 150px;
-        height: auto;
-        overflow-x: auto;
-        overflow-y: hidden;
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        scroll-snap-type: x mandatory;
-    }
-
-    .lanzamientos > div {
-        width: 100%;
-        min-width: 100%;
-        height: auto;
-        position: relative;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-    }
-
-    .lanzamientos img {
-        width: 100%;
-        min-width: 100%;
-        height: auto;
-        max-height: 280px;
-        object-fit: cover;
-        object-position: center;
     }
 
     .lanzamientos .btn-eliminar-banner {
