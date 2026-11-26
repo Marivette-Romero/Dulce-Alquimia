@@ -1349,8 +1349,7 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
   }
 
     .Busqueda {
-        position: fixed;
-        top: 0;
+        position: sticky; top: 0;
         left: 0;
         right: 0;
         z-index: 1000;
@@ -1425,7 +1424,7 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
     .contenedor-perfil,
     .carrito-contenedor,
     .tit {
-        margin-top: 145px;
+        margin-top: 0;
     }
 
     .lanzamientos .btn-eliminar-banner {
