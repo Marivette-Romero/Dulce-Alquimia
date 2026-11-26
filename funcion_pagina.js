@@ -869,13 +869,13 @@ async function cargarElementosInicioDinamicos() {
                             </button>`;
                     }
 
-                    seccionBanners.style.cssText = 'position: relative; width: 100%; margin-top: 105px; overflow: hidden; display: block;';
+                    seccionBanners.style.cssText = 'position: relative; width: 100%; margin-top: 0; overflow: hidden; display: block;';
                     seccionBanners.innerHTML = `
                         ${botonBorrar}
                         <img src="${srcBanner}" alt="${b.nombre || 'Banner'}" style="width: 100%; height: auto; display: block;">
                     `;
                 } else {
-                    seccionBanners.style.cssText = `position: relative; width: 100%; height: ${alturaBanner}; margin-top: 105px; overflow: hidden; display: block;`;
+                    seccionBanners.style.cssText = `position: relative; width: 100%; height: auto; margin-top: 0; overflow: hidden; display: block;`;
 
                     const trackBanners = document.createElement('div');
                     trackBanners.style.cssText = `display: flex; transition: transform 0.5s ease-in-out; width: ${banners.length * 100}%; height: 100%;`;
@@ -1329,11 +1329,12 @@ async function actualizarPuntitosRojosAlerta() {
                     puntito.style.cssText = 'position:absolute; top:2px; right:2px; background:red; border-radius:50%; width:8px; height:8px;';
                     campana.appendChild(puntito);
                 }
-                const ultimaAlertaVista = localStorage.getItem(`ultimaAlerta_${rolConsulta}`);
+                const claveStorageAlerta = `ultimaAlerta_${rolConsulta}_${correoReal.toLowerCase()}`;
+                const ultimaAlertaVista = localStorage.getItem(claveStorageAlerta);
                 const ultimaAlertaServidor = alertas[0].id.toString();
                 if (ultimaAlertaVista !== ultimaAlertaServidor) {
                     lanzarNotificacionFlotanteIzquierda(`🔔 ${alertas[0].mensaje}`);
-                    localStorage.setItem(`ultimaAlerta_${rolConsulta}`, ultimaAlertaServidor);
+                    localStorage.setItem(claveStorageAlerta, ultimaAlertaServidor);
                 }
             } else if (puntito) {
                 puntito.remove();

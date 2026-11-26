@@ -8,7 +8,7 @@ html, body /*Cuerpo de la pagina*/
 body
 {
   margin: 0;
-  background-image: linear-gradient(rgba(300, 300, 300, 0.7),rgba(300, 300, 300, 0.7)),url(Diseño/inicio.png);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(Diseño/inicio.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -40,8 +40,6 @@ body
   text-decoration: none;
   color: #3d2b1f;
   font-weight: bold;
-  transition: 0.3s;
-  line-height: 6;
   line-height: normal;
   font-size: 1rem;
   transition: all 0.4s ease;}
@@ -72,13 +70,19 @@ h3 {
 {
   width: 100%;
   margin-top: 0;
+  padding-top: 0;
   overflow: hidden;
   position: relative;
   box-shadow: 0 8px 20px rgba(93, 64, 55, 0.15);
   display: flex; 
   flex-direction: row;
   height: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+.lanzamientos::-webkit-scrollbar { display: none; }
+.lanzamientos.modo-admin::-webkit-scrollbar { display: block; height: 8px; }
+.lanzamientos.modo-admin::-webkit-scrollbar-thumb { background: #C5A447; border-radius: 4px; }
 
 .lanzamientos img {
   width: 100%;
@@ -273,35 +277,12 @@ h3 {
 .next { right: 5%; }
 /*Personalizacion del catalogo*/
 .Catalogo {
-  background-image: linear-gradient(rgba(300, 300, 300, 0.6), rgba(300, 300, 300, 0.6)), url("Diseño/fondo4.png");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("Diseño/fondo4.png");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   margin-top: 0;
-}
-.producto {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.producto img { width: 100%; height: 600px; object-fit: cover; border-radius: 10px;}
-.producto h2 { color: #d2691e; margin: 10px 0; font-size: 1.3rem; }
-.producto p { font-size: 0.9rem; flex-grow: 1; margin: 0; }
-.producto .precio { font-weight: bold; color: #2e8b57; font-size: 1.2rem; }
-.producto button {
-  background: #ff69b4;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 20px;
-  font-weight: bold;
 }
 h2 {font-size: 1.4rem; color: #d2691e;}
 .precio {display: block; font-size: 1.2rem; font-weight: bold; margin: 15px 0; color: #2e8b57;}
@@ -336,16 +317,28 @@ button:hover {background-color: #ff1493;}
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
 }
 .producto:hover { transform: translateY(-10px);}
 .producto img {width: 100%; height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;}
+.producto h2 { color: #d2691e; margin: 10px 0; font-size: 1.3rem; }
+.producto p { font-size: 0.9rem; flex-grow: 1; margin: 0; }
+.producto .precio { font-weight: bold; color: #2e8b57; font-size: 1.2rem; }
+.producto button {
+  background: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
 .lanzamientoEsp
 {
   color: red;
 }
 /*Personalizacion de sucursales*/
 .Sucursales {
-  background-image: linear-gradient(rgba(300, 300, 300, 0.3), rgba(300, 300, 300, 0.3)), url(Diseño/fondo2.png);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(Diseño/fondo2.png);
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -451,10 +444,9 @@ button:hover {background-color: #ff1493;}
     background-color: rgba(255, 255, 255, 0.8);
     padding: 30px;
     border-radius: 15px;
-    margin: 20px auto;
+    margin: 30px auto 20px auto;
     max-width: 900px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 30px;
     box-sizing: border-box;
 }
 .tabla-carrito {width: 100%; border-collapse: collapse; }
@@ -740,10 +732,11 @@ button:hover {background-color: #ff1493;}
 .post-foro {
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid #f4e7e6;
-  padding: 25px;
+  padding: 25px 25px 35px 25px;
   border-radius: 14px;
   margin-bottom: 20px;
   box-shadow: 0 4px 10px rgba(93, 64, 55, 0.03);
+  position: relative;
 }
 .post-cabecera {
   display: flex;
@@ -784,9 +777,6 @@ button:hover {background-color: #ff1493;}
   line-height: 1.6;
   margin: 0;
   text-align: justify;
-}
-.post-foro {position: relative;
-padding-bottom: 35px;
 }
 button.btn-borrar-comentario {
   position: absolute;
@@ -1235,10 +1225,6 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
   vertical-align: middle;
   color: #ffffff;
 }
-.lanzamientos::-webkit-scrollbar { display: none; }
-.lanzamientos { -ms-overflow-style: none; scrollbar-width: none; }
-.lanzamientos.modo-admin::-webkit-scrollbar { display: block; height: 8px; }
-.lanzamientos.modo-admin::-webkit-scrollbar-thumb { background: #C5A447; border-radius: 4px; }
 .modal-admin-flotante {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 10000;
@@ -1394,6 +1380,7 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
     .carrito-contenedor,
     .tit {
         margin-top: 0;
+        padding-top: 0;
     }
 
     .lanzamientos {
@@ -1548,4 +1535,3 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
         margin-top: 4px;
     }
 }
-
