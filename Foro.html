@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foro de Clientes | Dulce Alquimia</title>
+    <link rel="stylesheet" href="Diseño.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Pacifico&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</head>
+<body class="pagina-foro">
+    <header>
+      <nav>
+        <ul class="Busqueda">
+          <img src="Diseño/logo2.png" class="logo" alt="Logo Dulce Alquimia">
+          <h3>Dulce<br>Alquimia</h3>
+          <form><input type="search" placeholder="¿Qué se te antoja hoy?" class="buscador"/></form>
+          <li><a href="Dulce_Alquimia.html" class="Activar">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="sucursales.html">Sucursales</a></li>
+          <a href="Login.html"><span class="material-icons">account_circle</span></a>
+          <a href="Carrito.html"><span class="material-icons">shopping_cart</span></a>
+        </ul>
+      </nav>
+    </header>
+    <main class="contenedor-foro">
+        <div class="foro-bienvenida">
+            <h1 class="entraForo">Comunidad Dulce Alquimia</h1>
+            <p>Comparte tus momentos mágicos, recomienda tus postres favoritos o déjanos una sugerencia para seguir mejorando 
+              nuestras recetas.</p>
+        </div>
+        <div class="foro-layout"> 
+            <section class="foro-formulario">
+                <h3>Cuéntanos tu experiencia</h3>
+<!-- Este es un boton de emergencia para reiniciar la memoria en caso de fallo aplicado a cada pagina de ser necesario:
+<button type="button" onclick="localStorage.removeItem('foroAlquimia'); location.reload();" style="width:auto; background:#d9534f; 
+color:white; padding:10px; margin-bottom:20px; border-radius:8px; font-weight:bold; cursor:pointer;">⚠️ Limpiar Memoria Sucia del Foro</button>-->
+                <form id="form-comentario">
+                    <div class="grupo-foro">
+                        <label for="foro-tema">¿De qué quieres hablar?</label>
+                        <select id="foro-tema">
+                            <option value="opinion">Opinión de un Postre</option>
+                            <option value="evento">Mi Evento con Dulce Alquimia</option>
+                            <option value="sugerencia">Sugerencia o Duda</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grupo-foro">
+                        <label>¿Cuántas estrellas nos das?</label>
+                        <div class="estrellas-rating">
+                            <span class="material-icons star-btn">star_border</span>
+                            <span class="material-icons star-btn">star_border</span>
+                            <span class="material-icons star-btn">star_border</span>
+                            <span class="material-icons star-btn">star_border</span>
+                            <span class="material-icons star-btn">star_border</span>
+                        </div>
+                    </div>
+
+                    <div class="grupo-foro">
+                        <label for="foro-mensaje">Tu comentario:</label>
+                        <textarea id="foro-mensaje" placeholder="Escribe aquí... Ejemplo: ¡El pastel fudge de chocolate estuvo increíble en mi cumpleaños!" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-foro">Publicar en el Foro</button>
+                </form>
+            </section>
+
+            <section class="foro-comentarios-feed">
+                <h3>Opiniones recientes</h3>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="Pie">
+      <div class="pie-contenedor">
+        <div class="pie-marca">
+          <span class="pie-titulo-gourmet">Dulce Alquimia</span>
+          <div class="pie-enlaces-secundarios">
+            <a href="Foro.html" class="Activar">Foro de Clientes</a> | 
+            <a href="#">Términos de Servicio</a>
+          </div>
+        </div>
+        <div class="pie-contacto">
+          <p>¿Tienes dudas o un evento especial? <br>Comunícate al: <strong>981-160-1161</strong> o escribe a <strong>dulceAlquimia.support@gmail.com</strong></p>
+        </div>
+        <div class="pie-redes">
+          <span>Síguenos:</span>
+          <a href="facebook.com" title="Facebook"><span class="material-icons">facebook</span></a>
+          <a href="Instagram.com" title="Instagram"><span class="material-icons">camera_alt</span></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="funcion_pagina.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dulce Alquimia - Carrito</title>
+    <link rel="stylesheet" href="Diseño.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Pacifico&family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Indie+Flower&family=Pacifico&family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="Busqueda">
+                <img src="Diseño/logo2.png" class="logo" alt="Logo Dulce Alquimia">
+                <h3>Dulce<br>Alquimia</h3>
+                <form><input type="search" placeholder="¿Qué se te antoja hoy?" class="buscador"/></form>
+                <li><a href="Dulce_Alquimia.html" class="Activar">Inicio</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="sucursales.html">Sucursales</a></li>
+                <a href="Login.html"><span class="material-icons">account_circle</span></a>
+                <a href="Carrito.html"><span class="material-icons">shopping_cart</span></a>
+            </ul>
+        </nav>
+        
+        <section class="carrito-contenedor">
+            <table class="tabla-carrito">
+                <thead>
+                    <tr> 
+                        <th>Producto</th> 
+                        <th>Precio</th> 
+                        <th>Cantidad</th> 
+                        <th>Total</th> 
+                        <th>Acción</th> </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            
+            <div class="resumen-pago">
+                <div class="fila-resumen"><span>Subtotal:</span> <span>$0.00</span></div>
+                <div class="fila-resumen"><span>IVA (16%):</span> <span>$0.00</span></div>
+                <div class="total-final"><span>Total General:</span> <span>$0.00</span></div>
+                
+                <div style="margin-top: 25px; text-align: left; font-family: 'Montserrat', sans-serif; border-top: 1px solid #ddd; padding-top: 20px;">
+                    <h4 style="color: #5c3d2e; margin-bottom: 15px; font-weight: 700;">Detalles de la Entrega</h4>
+                    
+                    <label style="display:block; font-weight:bold; margin-bottom:5px; font-size:13px; color:#5d4037;">Tipo de servicio:</label>
+                    <select id="checkout-servicio" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px; font-family: 'Montserrat', sans-serif;" onchange="alternarCampoDireccion()">
+                        <option value="sucursal">Recoger en Sucursal</option>
+                        <option value="domicilio">Envío a Domicilio</option>
+                    </select>
+
+                    <label style="display:block; font-weight:bold; margin-bottom:5px; font-size:13px; color:#5d4037;">Selecciona la Sucursal:</label>
+                    <select id="checkout-sucursal" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px; font-family: 'Montserrat', sans-serif;">
+                        <option value="Centro Histórico (Campeche)">Centro Histórico (Campeche)</option>
+                        <option value="Av. Resurgimiento (Campeche)">Av. Resurgimiento (Campeche)</option>
+                        <option value="Paseo de Montejo (Yucatán)">Paseo de Montejo (Yucatán)</option>
+                        <option value="Altabrisa (Yucatán)">Altabrisa (Yucatán)</option>
+                    </select>
+
+                    <div id="campo-direccion-entrega" style="display: none;">
+                        <label style="display:block; font-weight:bold; margin-bottom:5px; font-size:13px; color:#5d4037;">Dirección Completa de Envío:</label>
+                        <input type="text" id="checkout-direccion" placeholder="Calle, Número, Colonia y Municipio" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc; margin-bottom:15px; box-sizing:border-box; font-family: 'Montserrat', sans-serif;">
+                    </div>
+
+                    <label style="display:block; font-weight:bold; margin-bottom:5px; font-size:13px; color:#5d4037;">Forma de Pago:</label>
+                    <select id="checkout-pago" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc; margin-bottom:20px; font-family: 'Montserrat', sans-serif;">
+                        <option value="efectivo">Efectivo al recibir / recoger</option>
+                        <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                        <option value="transferencia">Transferencia Interbancaria (SPEI)</option>
+                    </select>
+                    <div id="bloque-tarjeta" style="display: none; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ff69b4; margin-bottom: 15px;">
+                    <h5 style="margin:0 0 10px 0; color:#5c3d2e;">Datos de la Tarjeta:</h5>
+                    <input type="text" id="num-tarjeta" placeholder="Número de Tarjeta (16 dígitos)" maxlength="16" style="width:100%; padding:8px; margin-bottom:8px; box-sizing:border-box;">
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" placeholder="MM/AA" maxlength="5" style="width:50%; padding:8px;">
+                        <input type="password" placeholder="CVV" maxlength="3" style="width:50%; padding:8px;">
+                    </div>
+                </div>
+                <div id="bloque-spei" style="display: none; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #C5A447; margin-bottom: 15px; font-size:13px; color:#5d4037;">
+                    <p style="margin:0 0 10px 0;"><strong>Cuenta CLABE Interbancaria:</strong> 0123 4567 8901 2345 67<br><strong>Banco:</strong> Santander xd</p>
+                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Sube tu captura de pago (Obligatorio):</label>
+                    <input type="file" id="comprobante-spei" accept="image/*">
+                </div>
+                </div>
+
+                <button class="btn-pagar">Realizar y Pagar Orden</button>
+            </div>
+        </section>
+    </header>
+
+    <footer class="Pie">
+      <div class="pie-contenedor">
+        <div class="pie-marca">
+          <span class="pie-titulo-gourmet">Dulce Alquimia</span>
+          <div class="pie-enlaces-secundarios">
+            <a href="Foro.html">Foro de clientes</a> | 
+            <a href="#">Términos de servicio</a>
+          </div>
+        </div>
+
+        <div class="pie-contacto">
+          <p>¿Inconformidades? Comunícate al: <strong>981-160-1161</strong> o al correo: <strong>dulceAlquimia.support@gmail.com</strong></p>
+        </div>
+
+        <div class="pie-redes">
+          <span>Síguenos:</span>
+          <a href="facebook.com" title="Facebook"><span class="material-icons">facebook</span></a>
+          <a href="Instagram.com" title="Instagram"><span class="material-icons">camera_alt</span></a>
+        </div>
+      </div>
+
+      <div class="pie-copyright">
+        &copy; Copyright solo de nosotros y de nadie más. | 2026 | Juan y Mary.
+      </div>
+    </footer>
+    <script src="funcion_pagina.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const btnPagarReal = document.querySelector('.btn-pagar');
+        
+        if (btnPagarReal) {
+            btnPagarReal.addEventListener('click', function() {
+                let carrito = JSON.parse(localStorage.getItem('carritoAlquimia')) || [];
+                if (carrito.length === 0) return;
+                const servicio = document.getElementById('checkout-servicio').value;
+                const sucursal = document.getElementById('checkout-sucursal').value;
+                const direccion = document.getElementById('checkout-direccion') ? document.getElementById('checkout-direccion').value.trim() : '';
+                const elementoTotal = document.querySelector('.total-final span:last-child');
+                const totalTexto = elementoTotal ? elementoTotal.innerText : '$0.00';
+                const usuarioActivo = JSON.parse(localStorage.getItem('usuarioAlquimia')) || { nombre: 'Invitado', email: 'invitado@correo.com' };
+                let pedidosGlobales = JSON.parse(localStorage.getItem('pedidosGlobalesAlquimia')) || [];
+                const nuevoPedido = {
+                    idPedido: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
+                    cliente: usuarioActivo.nombre,
+                    correoCliente: usuarioActivo.email,
+                    productos: carrito.map(i => `${i.nombre} (x${i.cantidad})`).join(', '),
+                    servicio: servicio === 'sucursal' ? `Recoger en: ${sucursal}` : `Domicilio: ${direccion}`,
+                    total: totalTexto,
+                    estado: 'pendiente',
+                    timestamp: Date.now()
+                };
+                pedidosGlobales.push(nuevoPedido);
+                localStorage.setItem('pedidosGlobalesAlquimia', JSON.stringify(pedidosGlobales));
+                let alertasAdmin = JSON.parse(localStorage.getItem('alertasAdmin')) || [];
+                alertasAdmin.push(`Nuevo pedido recibido: ${nuevoPedido.idPedido} de ${nuevoPedido.cliente}`);
+                localStorage.setItem('alertasAdmin', JSON.stringify(alertasAdmin));
+                let alertasCliente = JSON.parse(localStorage.getItem('alertasCliente')) || [];
+                alertasCliente.push(`Tu orden ${nuevoPedido.idPedido} ha sido recibida y está en estado: PENDIENTE.`);
+                localStorage.setItem('alertasCliente', JSON.stringify(alertasCliente));
+                if (typeof lanzarNotificacionFlotanteIzquierda === 'function') {
+                    lanzarNotificacionFlotanteIzquierda(`🔔 ¡Nueva orden ${nuevoPedido.idPedido} enviada al panel admin!`);
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

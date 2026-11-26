@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dulce Alquimia | Pastelería Artesanal</title>
+    <link rel="stylesheet" href="Diseño.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Pacifico&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  </head>
+  <body>
+    
+    <header>
+      <nav>
+        <ul class="Busqueda">
+          <img src="Diseño/logo2.png" class="logo" alt="Logo Dulce Alquimia">
+          <h3>Dulce<br>Alquimia</h3>
+          <form><input type="search" placeholder="¿Qué se te antoja hoy?" class="buscador"/></form>
+          <li><a href="Dulce_Alquimia.html" class="Activar">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="sucursales.html">Sucursales</a></li>
+          <a href="Login.html"><span class="material-icons">account_circle</span></a>
+          <a href="Carrito.html"><span class="material-icons">shopping_cart</span></a>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="lanzamientos">
+    </section>
+
+    <section class="seccion-ofertas" style="margin-top: 40px; margin-bottom: 20px; text-align: center;">
+        <h1 style="font-family: 'Pacifico', cursive; color: #ff69b4; font-size: 2.5rem; margin-bottom: 10px;">La magia hecha postre</h1>
+        <p style="font-family: 'Montserrat', sans-serif; color: #5c3d2e; max-width: 700px; margin: 0 auto; line-height: 1.6; font-size: 1.1rem;">
+            En <strong>Dulce Alquimia</strong> transformamos ingredientes simples en momentos inolvidables. Cada pastel, galleta y postre está horneado desde cero, con técnicas artesanales y un toque de amor puro. ¡Déjate hechizar por nuestro sabor!
+        </p>
+    </section>
+ 
+    <section class="seccion-ofertas">
+      <h2 class="titulo">Ofertas de Temporada</h2>
+      <div class="contenedor-carrusel">
+        <button class="btn-flecha prev" onclick="anterior()">&#10094;</button>
+        <div class="carrusel-productos">
+        </div>
+        <button class="btn-flecha next" onclick="siguiente()">&#10095;</button>
+      </div>
+    </section>
+
+    <section style="background: rgba(255, 245, 245, 0.6); padding: 5px 20px 40px 20px; margin: 40px 0;">
+        <h2 class="titulo" style="font-size: 2.2rem; margin-top: 30px;">El Secreto de Nuestra Alquimia</h2>
+        <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; text-align: center; font-family: 'Montserrat', sans-serif;">
+            <div style="flex: 1; min-width: 250px; max-width: 300px;">
+                <span class="material-icons" style="font-size: 45px; color: #ff69b4;">workspace_premium</span>
+                <h4 style="color: #5d4037; font-size: 1.2rem; margin: 10px 0;">Ingredientes Premium</h4>
+                <p style="color: #7d665e; font-size: 0.9rem; line-height: 1.4;">Solo usamos mantequilla pura, frutas frescas de temporada y chocolates seleccionados.</p>
+            </div>
+            <div style="flex: 1; min-width: 250px; max-width: 300px;">
+                <span class="material-icons" style="font-size: 45px; color: #C5A447;">cake</span>
+                <h4 style="color: #5d4037; font-size: 1.2rem; margin: 10px 0;">Hecho a Mano</h4>
+                <p style="color: #7d665e; font-size: 0.9rem; line-height: 1.4;">Sin conservadores ni procesos industriales. Cada postre tiene un alma única.</p>
+            </div>
+            <div style="flex: 1; min-width: 250px; max-width: 300px;">
+                <span class="material-icons" style="font-size: 45px; color: #ff69b4;">local_shipping</span>
+                <h4 style="color: #5d4037; font-size: 1.2rem; margin: 10px 0;">Pedidos Seguros</h4>
+                <p style="color: #7d665e; font-size: 0.9rem; line-height: 1.4;">Preparamos tu orden al momento para asegurar que llegue fresquecito a tu mesa.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="carrusel-section" style="flex-direction: column;">
+      <h2 class="titulo">Los Favoritos de la Casa</h2>
+      <div class="carrusel-container">
+        <button class="btn-control prev" id="prevBtn">&#10094;</button>
+        <div class="carrusel-track" id="carruselTrack">
+        </div>
+        <button class="btn-control next" id="nextBtn">&#10095;</button>
+      </div>
+    </section>
+
+    <footer class="Pie">
+      <div class="pie-contenedor">
+        <div class="pie-marca">
+          <span class="pie-titulo-gourmet">Dulce Alquimia</span>
+          <div class="pie-enlaces-secundarios">
+            <a href="Foro.html">Foro de Clientes</a> | 
+            <a href="#">Términos de Servicio</a>
+          </div>
+        </div>
+        <div class="pie-contacto">
+          <p>¿Tienes dudas o un evento especial? <br>Comunícate al: <strong>981-160-1161</strong> o escribe a <strong>dulceAlquimia.support@gmail.com</strong></p>
+        </div>
+        <div class="pie-redes">
+          <span>Síguenos:</span>
+          <a href="facebook.com" title="Facebook"><span class="material-icons">facebook</span></a>
+          <a href="Instagram.com" title="Instagram"><span class="material-icons">camera_alt</span></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="funcion_pagina.js"></script>
+    <a href="https://wa.me/529811601161?text=¡Hola!%20Me%20gustaría%20cotizar%20un%20postre%20personalizado%20en%20Dulce%20Alquimia%20✨" class="btn-whatsapp-flotante" target="_blank" title="Cotizar Postre Personalizado">
+    <span class="material-icons">chat</span> ¡Postres Personalizados!</a>
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const fotoGlobal = localStorage.getItem('fotoPerfilAlquimia') || sessionStorage.getItem('fotoPerfilAlquimia');
+        const enlaceUsuario = document.querySelector('a[href="Login.html"]') || document.querySelector('.enlace-perfil-icono');
+
+        if (fotoGlobal && enlaceUsuario) {
+            enlaceUsuario.innerHTML = `<img src="${fotoGlobal}" alt="Perfil" style="width:30px; height:30px; border-radius:50%; object-fit:cover; vertical-align:middle; border:2px solid #ff69b4;">`;
+            enlaceUsuario.href = 'Perfil.html';
+        }
+    });
+</script>
+  </body>
+</html>

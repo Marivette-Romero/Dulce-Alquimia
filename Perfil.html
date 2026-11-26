@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Perfil | Dulce Alquimia</title>
+    <link rel="stylesheet" href="Diseño.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</head>
+<body class="pagina-perfil">
+
+    <header>
+        <nav class="barra-navegacion-corta">
+            <a href="Dulce_Alquimia.html" class="btn-regresar" title="Volver al Inicio">
+                <span class="material-icons">arrow_back</span> Regresar al Inicio
+            </a>
+            <div class="marca-perfil">
+                <span class="pie-titulo-gourmet">Dulce Alquimia</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="contenedor-perfil">
+      <div class="tarjeta-perfil">
+        <div class="encabezado-usuario">
+            <div id="zona-foto-perfil" style="position: relative; width: 80px; height: 80px; margin: 0 auto 15px auto; cursor: pointer;" title="Cambiar foto de perfil">
+             <span class="material-icons avatar-perfil" id="avatar-icono" style="font-size: 80px; color: #ec88b2; display: block;">account_circle</span>
+             <img id="avatar-imagen" src="" alt="Foto de perfil" style="display: none; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #ec88b2;">
+            </div>
+<input type="file" id="input-archivo-foto" accept="image/*" style="display: none;" onchange="
+    const archivo = this.files[0];
+    if (archivo) {
+        const lector = new FileReader();
+        lector.onload = function(e) {
+            const imagenBase64 = e.target.result;
+            document.getElementById('avatar-icono').style.display = 'none';
+            const imgGrande = document.getElementById('avatar-imagen');
+            imgGrande.src = imagenBase64;
+            imgGrande.style.display = 'block';
+            localStorage.setItem('fotoPerfilAlquimia', imagenBase64);
+        };
+        lector.readAsDataURL(archivo);
+    }
+">
+            <h2>¡Hola de nuevo!</h2>
+            <p class="subtexto">Gestiona la información de tu cuenta desde aquí.</p>
+        </div>
+
+            <form id="form-actualizar-perfil" class="formulario-perfil">
+                <div class="grupo-input">
+                    <label for="nombre-perfil">Nombre Completo:</label>
+                    <input type="text" id="nombre-perfil" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="correo-perfil">Correo Electrónico:</label>
+                    <input type="email" id="correo-perfil" placeholder="tu@correo.com" disabled>
+                    <small class="nota-input">El correo electrónico no se puede cambiar.</small>
+                </div>
+                <button type="submit" class="btn-guardar">
+                    <span class="material-icons">save</span> Guardar Cambios
+                </button>
+            </form>
+
+            <hr class="divisor-perfil">
+
+            <div class="acciones-cuenta">
+                <h3>Opciones de Cuenta</h3>
+                
+                <div class="botones-acciones">
+                    <button type="button" id="btn-cerrar-sesion" class="btn-accion-perfil btn-logout">
+                        <span class="material-icons">logout</span> Cerrar Sesión
+                    </button>
+
+                    <button type="button" id="btn-eliminar-cuenta" class="btn-accion-perfil btn-danger">
+                        <span class="material-icons">delete_forever</span> Borrar Cuenta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="Pie">
+      <div class="pie-contenedor">
+        <div class="pie-marca">
+          <span class="pie-titulo-gourmet">Dulce Alquimia</span>
+          <div class="pie-enlaces-secundarios">
+            <a href="Foro.html">Foro de Clientes</a> | 
+            <a href="#">Términos de Servicio</a>
+          </div>
+        </div>
+        <div class="pie-contacto">
+          <p>¿Tienes dudas o un evento especial? <br>Comunícate al: <strong>981-160-1161</strong> o escribe a <strong>dulceAlquimia.support@gmail.com</strong></p>
+        </div>
+        <div class="pie-redes">
+          <span>Síguenos:</span>
+          <a href="facebook.com" title="Facebook"><span class="material-icons">facebook</span></a>
+          <a href="Instagram.com" title="Instagram"><span class="material-icons">camera_alt</span></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="funcion_pagina.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const fotoGuardada = localStorage.getItem('fotoPerfilAlquimia');
+        if (fotoGuardada) {
+            const icono = document.getElementById('avatar-icono');
+            const img = document.getElementById('avatar-imagen');
+            if (icono && img) {
+                icono.style.display = 'none';
+                img.src = fotoGuardada;
+                img.style.display = 'block';
+            }
+        }
+    });
+</script>
+</body>
+</html>
