@@ -1316,7 +1316,8 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
 
 /* MEDIDAS ADAPTABLES (UNIFICADAS) */
 @media (max-width: 768px) {
-  .lanzamientos {
+ .lanzamientos {
+    margin-top: 0;
     width: 100%;
     min-height: auto;
     height: auto;
@@ -1347,24 +1348,7 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
     object-position: center;
     display: block;
   }
-
-    .Busqueda {
-        position: sticky; top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        width: 100%;
-        margin: 0;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 6px 8px;
-        padding: 8px 10px;
-        box-sizing: border-box;
-    }
-
+}
     .Busqueda .logo {
         width: 55px;
         height: 55px;
