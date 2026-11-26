@@ -3,7 +3,7 @@ html, body /*Cuerpo de la pagina*/
   margin: 0;
   padding: 0;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 body
 {
@@ -29,7 +29,7 @@ body
   align-items: center;
   gap: 20px;
   justify-content: center;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width:100%;
@@ -71,7 +71,7 @@ h3 {
 .lanzamientos 
 {
   width: 100%;
-  margin-top: 105px;
+  margin-top: 0;
   overflow: hidden;
   position: relative;
   box-shadow: 0 8px 20px rgba(93, 64, 55, 0.15);
@@ -278,7 +278,7 @@ h3 {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin-top: 109px;
+  margin-top: 0;
 }
 .producto {
   background: rgba(255, 255, 255, 0.9);
@@ -350,7 +350,7 @@ button:hover {background-color: #ff1493;}
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin-top: 109px;
+  margin-top: 0;
 }
 #contenedor-mapa {font-family: Arial, sans-serif;max-width: 1000px;margin: 20px auto;padding: 0 20px;}
 .buscador-zona {margin-bottom: 15px; display: flex; gap: 10px;}
@@ -359,7 +359,7 @@ button:hover {background-color: #ff1493;}
 /*Nosotros*/
 .contenedor-nosotros {
   max-width: 1200px;
-  margin: 140px auto 60px auto; 
+  margin: 40px auto 60px auto; 
   padding: 0 20px;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
@@ -454,7 +454,7 @@ button:hover {background-color: #ff1493;}
     margin: 20px auto;
     max-width: 900px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 120px;
+    margin-top: 30px;
     box-sizing: border-box;
 }
 .tabla-carrito {width: 100%; border-collapse: collapse; }
@@ -628,11 +628,11 @@ button:hover {background-color: #ff1493;}
 }
 .link-regresar .material-icons {font-size: 16px;}
 .link-regresar:hover {color: #ff69b4;}
-.tit{margin-top: 170px;}
+.tit{margin-top: 30px;}
 /*FORO DE CLIENTES*/
 .contenedor-foro {
   max-width: 1200px;
-  margin: 140px auto 60px auto;
+  margin: 40px auto 60px auto;
   padding: 0 20px;
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
@@ -1316,39 +1316,24 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
 
 /* MEDIDAS ADAPTABLES (UNIFICADAS) */
 @media (max-width: 768px) {
- .lanzamientos {
-    margin-top: 0;
-    width: 100%;
-    min-height: auto;
-    height: auto;
-    overflow-x: auto;
-    overflow-y: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    scroll-snap-type: x mandatory;
-  }
+    .Busqueda {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        width: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 6px 8px;
+        padding: 8px 10px;
+        box-sizing: border-box;
+    }
 
-  .lanzamientos > div {
-    width: 100%;
-    min-width: 100%;
-    height: auto;
-    position: relative;
-    flex-shrink: 0;
-    scroll-snap-align: start;
-  }
-
-  .lanzamientos img {
-    width: 100%;
-    min-width: 100%;
-    height: auto;
-    max-height: none;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-  }
-}
     .Busqueda .logo {
         width: 55px;
         height: 55px;
@@ -1409,6 +1394,38 @@ button.btn-borrar-comentario:hover .material-icons {color: #ff69b4;}
     .carrito-contenedor,
     .tit {
         margin-top: 0;
+    }
+
+    .lanzamientos {
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        scroll-snap-type: x mandatory;
+    }
+
+    .lanzamientos > div {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        position: relative;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+    }
+
+    .lanzamientos img {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+        object-position: center;
+        display: block;
     }
 
     .lanzamientos .btn-eliminar-banner {
