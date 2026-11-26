@@ -610,4 +610,12 @@ $RECYCLE.BIN/
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
+# Variables de entorno y respaldos locales
+#.env
+#.env.*
+#respaldo_datos.json
+#respaldo.xlsx
+
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudio,dotnetcore,csharp
+
